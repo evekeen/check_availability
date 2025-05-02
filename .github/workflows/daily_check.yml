@@ -28,4 +28,4 @@ jobs:
           EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
         run: |
-          python helmet_checker.py https://www.motoland.rs/proizvod/31153/shoei-nxr-ii-white --email ${{ secrets.RECIPIENT_EMAIL }} 
+          python checkl_availability.py --email ${{ secrets.RECIPIENT_EMAIL }}  https://www.motoland.rs/proizvod/31153/shoei-nxr-ii-white

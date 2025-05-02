@@ -16,4 +16,4 @@ export EMAIL_ADDRESS="your_sender_email@gmail.com"
 export EMAIL_PASSWORD="your_app_password"
 
 # Run the script with the URL and email address
-python helmet_checker.py https://www.motoland.rs/proizvod/31153/shoei-nxr-ii-white --email $EMAIL 
+python checkl_availability.py --email $EMAIL https://www.motoland.rs/proizvod/31153/shoei-nxr-ii-white
