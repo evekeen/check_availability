@@ -7,6 +7,7 @@ from datetime import datetime
 import time
 import random
 import argparse
+import os
 
 def check_helmet_availability(url):
     # Add randomized user agent to avoid being blocked
@@ -68,8 +69,13 @@ def check_helmet_availability(url):
     except Exception as e:
         return f"Error checking availability: {str(e)}"
 
-def send_email(report, recipient_email, smtp_server="smtp.gmail.com", smtp_port=587, 
-               sender_email="your_email@gmail.com", sender_password="your_app_password"):
+def send_email(report, recipient_email, smtp_server="smtp.gmail.com", smtp_port=587):
+    sender_email = os.environ.get("EMAIL_ADDRESS")
+    sender_password = os.environ.get("EMAIL_PASSWORD")
+    
+    if not sender_email or not sender_password:
+        raise ValueError("EMAIL_ADDRESS and EMAIL_PASSWORD must be set in the environment variables")
+    
     msg = MIMEMultipart()
     msg['From'] = sender_email
     msg['To'] = recipient_email
