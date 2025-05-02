@@ -68,12 +68,33 @@ def check_helmet_availability(url):
     except Exception as e:
         return f"Error checking availability: {str(e)}"
 
+def send_email(report, recipient_email, smtp_server="smtp.gmail.com", smtp_port=587, 
+               sender_email="your_email@gmail.com", sender_password="your_app_password"):
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = recipient_email
+    msg['Subject'] = "Helmet Availability Report"
+    
+    msg.attach(MIMEText(report, 'plain'))
+    
+    try:
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(sender_email, sender_password)
+        server.send_message(msg)
+        server.quit()
+        print("Email notification sent successfully")
+    except Exception as e:
+        print(f"Error sending email: {str(e)}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Check helmet availability on a product page")
     parser.add_argument("url", help="URL of the product page to check")
+    parser.add_argument("--email", help="Email address to send notifications to")
     args = parser.parse_args()
     
     report = check_helmet_availability(args.url)
     print(report)
-    # send_email(report) 
+    
+    if args.email:
+        send_email(report, args.email) 

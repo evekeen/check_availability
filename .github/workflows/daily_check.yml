@@ -1,0 +1,30 @@
+name: Daily Helmet Availability Check
+
+on:
+  schedule:
+    # Runs at 08:00 UTC daily
+    - cron: '0 8 * * *'
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  check-helmet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run helmet check
+        env:
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+        run: |
+          python helmet_checker.py https://www.motoland.rs/proizvod/31153/shoei-nxr-ii-white --email ${{ secrets.RECIPIENT_EMAIL }} 

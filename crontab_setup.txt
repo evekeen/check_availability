@@ -1,0 +1,5 @@
+# To set up the cron job, run:
+# crontab -e
+#
+# Then add this line (replacing with your actual path):
+0 8 * * * /Users/ivkin/my/heltmet_checker/run_daily.sh >> /Users/ivkin/my/heltmet_checker/helmet_checker.log 2>&1 
