@@ -1,9 +1,6 @@
 name: Daily Helmet Availability Check
 
 on:
-  schedule:
-    # Runs at 08:00 UTC daily
-    - cron: '0 8 * * *'
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
